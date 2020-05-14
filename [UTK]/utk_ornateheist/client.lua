@@ -127,13 +127,13 @@ local Ipfinished = false
 local UsingComputer = false
 local text
 local RouletteWords = {
-    "UTK4EVER",
+    "WH0SK1ZM",
     "ABSOLUTE",
-    "ISTANBUL",
+    "NORTHSRP",
     "DOCTRINE",
     "IMPERIUS",
-    "DELIRIUM",
-    "MAETHRIL"
+    "J3KSGBLG",
+    "C0DEBLU3"
 }
 function UTK:GetInfo()
     ESX.TriggerServerCallback("utk_oh:GetData", function(output)
@@ -1501,7 +1501,7 @@ end)
 RegisterNetEvent("utk_oh:policenotify")
 AddEventHandler("utk_oh:policenotify", function(toggle)
     local player = ESX.GetPlayerData()
-    if player.job.name == "police" then
+    if player.job.name == "police" or player.job.name == "ambulance" then
         if toggle == 1 then
             exports["mythic_notify"]:SendAlert("infrom", "Pacific Standart Bank alarms are triggered!", 10000, {["background-color"] = "#CD472A", ["color"] = "#ffffff"})
             if not DoesBlipExist(UTK.alarmblip) then

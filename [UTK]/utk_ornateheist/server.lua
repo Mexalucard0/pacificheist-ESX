@@ -4,6 +4,7 @@ local mincash = 5000 -- minimum amount of cash a pile holds
 local maxcash = 10000 -- maximum amount of cash a pile can hold
 local black = false -- enable this if you want blackmoney as a reward
 local mincops = 0 -- minimum required cops to start mission
+local minems = 1 -- minimum required ems to start mission
 local enablesound = true -- enables bank alarm sound
 local lastrobbed = 0 -- don't change this
 local cooldown = 1800 -- amount of time to do the heist again in seconds (30min)
@@ -38,8 +39,15 @@ ESX.RegisterServerCallback("utk_oh:startevent", function(source, cb, method)
                         copcount = copcount + 1
                     end
                 end
+
+                if xPlayer then
+                    if xPlayer.job.name == "ambulance" then
+                        emscount = emscount + 1
+                    end
+                end
+
             end
-            if copcount >= mincops then
+            if copcount >= mincops and emscount >= minems then
                 if method == 1 then
                     local item = yPlayer.getInventoryItem("thermal_charge")["count"]
 
@@ -66,7 +74,7 @@ ESX.RegisterServerCallback("utk_oh:startevent", function(source, cb, method)
                     end
                 end
             else
-                cb("There must be at least "..mincops.." police in the city.")
+                cb("There must be at least "..mincops.." police and "..minems.." ems in the city.")
             end
         else
             cb(math.floor((cooldown - (os.time() - lastrobbed)) / 60)..":"..math.fmod((cooldown - (os.time() - lastrobbed)), 60).." left until the next robbery.")
